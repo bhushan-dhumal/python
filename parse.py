@@ -3,9 +3,11 @@ from datetime import datetime
 import os
 
 file_name= "_chat.txt"
-
-today = datetime.today().strftime('%d/%m/%y')
-
+if len(sys.argv) > 0 and sys.argv[0]:
+    today = sys.argv[1]
+else:
+    today = datetime.today().strftime('%d/%m/%y')
+print(today)
 d = {}
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +20,8 @@ try:
         for line in lines:
             if line[1:9] == today :
                 name = line.split("]")[1].split(":")[0]
+                if name[1] == '\u200e':
+                    continue
                 if name in d :
                     d[name]+=1
                 else:
